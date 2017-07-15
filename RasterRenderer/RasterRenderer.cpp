@@ -9,7 +9,7 @@ RasterRenderer::RasterRenderer(QWidget *parent) : QMainWindow(parent) {
 	ui.setupUi(this);
 
 	int w, h;
-	w = 1024;
+	w = 1366;
 	h = 768;
 
 	//std::string inputfile = "../Resources/cube/cube.obj";

@@ -26,10 +26,8 @@ private:
 	glm::dmat4 viewPortMat();
 	glm::dvec4 model2ViewPort(glm::dvec4 coor);
 
-	void renderLine(glm::ivec2 p1, glm::ivec2 p2);
+	glm::dvec3 pixelShader(const Tri &tri, double u, double v, glm::dvec3 fragPos);
 
-	//std::vector<glm::ivec2> linePositions(glm::);
-	std::vector<glm::ivec2> flatTriPostions(glm::ivec2 p1, glm::ivec2 p2, glm::ivec2 p3);
 	std::vector<glm::ivec2> flatTriPositions(glm::dvec2 p1, glm::dvec2 p2, glm::dvec2 p3);
 	void renderTri(const Tri &tri);
 };
