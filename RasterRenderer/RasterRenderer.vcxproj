@@ -140,6 +140,7 @@
     </CustomBuild>
     <ClInclude Include="GeneratedFiles\ui_RasterRenderer.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="PhongShader.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Tri.h" />

@@ -13,6 +13,7 @@ void CanvasWidget::paintEvent(QPaintEvent *) {
 	frameToQImage();
 	QPainter p(this);
 	p.drawImage(QRect(0, 0, frame->w, frame->h), *img);
+	saveCanvas("result.png");
 }
 
 void CanvasWidget::frameToQImage() {
@@ -22,4 +23,8 @@ void CanvasWidget::frameToQImage() {
 			img->setPixel(i, frame->h - j - 1, qRgb(c.r * 255, c.g * 255, c.b * 255));
 		}
 	}
+}
+
+void CanvasWidget::saveCanvas(std::string filename) {
+	img->save(QString(filename.c_str()));
 }

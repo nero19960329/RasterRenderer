@@ -11,6 +11,6 @@ public:
 	glm::dmat4 trans;
 
 public:
-	Mesh(const tinyobj::shape_t &shape, const tinyobj::attrib_t &attrib);
+	Mesh(const tinyobj::shape_t &shape, const std::vector<tinyobj::material_t> &materials, const tinyobj::attrib_t &attrib);
 	~Mesh() {}
 };

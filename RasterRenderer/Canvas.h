@@ -17,6 +17,7 @@ public:
 	T &at(int i, int j);
 
 	void setAll(const T &val);
+	bool isValid(double i, double j);
 };
 
 template<typename T>
@@ -31,7 +32,12 @@ inline T &Canvas<T>::at(int i, int j) {
 }
 
 template<typename T>
-inline void Canvas<T>::setAll(const T & val) {
+inline void Canvas<T>::setAll(const T &val) {
 	for (int i = 0; i < w * h; ++i)
 		map[i] = val;
+}
+
+template<typename T>
+inline bool Canvas<T>::isValid(double i, double j) {
+	return 0 <= i && i < w && 0 <= j && j < h;
 }

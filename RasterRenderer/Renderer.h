@@ -5,6 +5,8 @@
 #include "Scene.h"
 #include "Tri.h"
 
+#include "tiny_obj_loader.h"
+
 #include <vector>
 
 class Renderer {
@@ -23,11 +25,18 @@ public:
 	void render(const Scene &scene);
 
 private:
+	glm::dmat4 invViewPortMat;
+	std::vector<tinyobj::material_t> materials;
+
+private:
 	glm::dmat4 viewPortMat();
 	glm::dvec4 model2ViewPort(glm::dvec4 coor);
 
-	glm::dvec3 pixelShader(const Tri &tri, double u, double v, glm::dvec3 fragPos);
+	bool isValidCoor(glm::dvec3 v);
+
+	glm::dvec3 fragShader(const Tri &tri, glm::dvec3 fragPos, glm::dvec3 normal);
 
 	std::vector<glm::ivec2> flatTriPositions(glm::dvec2 p1, glm::dvec2 p2, glm::dvec2 p3);
+	std::vector<glm::ivec2> triPositions(glm::dvec2 coors[3]);
 	void renderTri(const Tri &tri);
 };

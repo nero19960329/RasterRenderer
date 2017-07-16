@@ -21,3 +21,8 @@ bool ptInTri(glm::dvec2 p, glm::dvec2 p1, glm::dvec2 p2, glm::dvec2 p3) {
 
 	return (b1 == b2) && (b2 == b3);
 }
+
+template<typename T>
+T interpolate(glm::dvec3 coe, const T &e1, const T &e2, const T &e3) {
+	return coe.x * e1 + coe.y * e2 + coe.z * e3;
+}

@@ -18,4 +18,6 @@ public:
 	void paintEvent(QPaintEvent *);
 
 	void frameToQImage();
+
+	void saveCanvas(std::string filename);
 };
