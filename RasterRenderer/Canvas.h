@@ -11,7 +11,7 @@ public:
 public:
 	Canvas() : map(nullptr), w(0), h(0) {}
 	Canvas(int w_, int h_);
-	~Canvas() { if (map) delete[] map; }
+	~Canvas() { /*if (map) delete[] map;*/ }
 
 	// not a safe method!!
 	T &at(int i, int j);
@@ -24,6 +24,8 @@ template<typename T>
 inline Canvas<T>::Canvas(int w_, int h_) :
 	w(w_), h(h_) {
 	map = new T[w * h];
+	for (int i = 0; i < w * h; ++i)
+		map[i] = T(0);
 }
 
 template<typename T>

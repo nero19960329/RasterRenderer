@@ -2,6 +2,7 @@
 
 void Camera::lookAt(glm::dvec3 eye, glm::dvec3 center, glm::dvec3 up) {
 	eye_ = eye;
+	center_ = center;
 
 	glm::dvec3 x, y, z;
 	y = glm::normalize(up);

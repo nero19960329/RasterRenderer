@@ -95,10 +95,11 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="PhongShader.cpp" />
     <ClCompile Include="RasterRenderer.cpp" />
-    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Tri.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="RasterRenderer.h">
@@ -143,6 +144,7 @@
     <ClInclude Include="PhongShader.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="ShadowShader.h" />
     <ClInclude Include="Tri.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vert.h" />

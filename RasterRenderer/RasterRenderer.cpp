@@ -1,6 +1,6 @@
 #include "CanvasWidget.h"
 #include "RasterRenderer.h"
-#include "Renderer.h"
+#include "PhongShader.h"
 #include "Scene.h"
 
 #include <iostream>
@@ -15,7 +15,8 @@ RasterRenderer::RasterRenderer(QWidget *parent) : QMainWindow(parent) {
 	//std::string inputfile = "../Resources/cube/cube.obj";
 	//std::string inputfile = "../Resources/dragon/dragon.obj";
 	//std::string inputfile = "../Resources/conference/test.obj";
-	std::string inputfile = "../Resources/CornellBox/CornellBox-Original.obj";
+	//std::string inputfile = "../Resources/CornellBox/CornellBox-Sphere.obj";
+	std::string inputfile = "../Resources/buddha/buddha.obj";
 	Scene scene(inputfile);
 
 	Camera cam;
@@ -29,20 +30,29 @@ RasterRenderer::RasterRenderer(QWidget *parent) : QMainWindow(parent) {
 		{ -946.887512, 650.292542, 525.665161 },
 		{ 0.0, 1.0, 0.0 }
 	);*/
+	/*cam.lookAt(
+		{ 0.0, 0.8, 3.0 },
+		{ 0.0, 0.8, 0.0 },
+		{ 0.0, 0.8, 0.0 }
+	);*/
 	cam.lookAt(
-		{ 0.0, 1.0, 3.0 },
-		{ 0.0, 1.0, 0.0 },
+		{ 0.0, 0.0, -1.0 },
+		{ 0.0, 0.0, 0.0 },
 		{ 0.0, 1.0, 0.0 }
 	);
-	cam.perspective(
-		45.0,
-		w * 1.0 / h,
-		0.1,
-		100.0
-	);
+	cam.perspective(45.0, w * 1.0 / h, 0.1, 100.0);
 
-	Renderer renderer(w, h);
+	PhongShader::Light light;
+	light.pos = glm::dvec3(0.0, 0.0, -1.0);
+	light.color = glm::dvec3(1.0, 1.0, 1.0);
+	light.ambientStrength = 0.2;
+	light.diffuseStrength = 0.8;
+	light.specularStrength = 1.0;
+
+	PhongShader renderer(w, h);
 	renderer.setCamera(cam);
+	renderer.setLight(light);
+	renderer.setShadowMapDim(0);
 	renderer.render(scene);
 
 	CanvasWidget *canvasWidget = new CanvasWidget(this, renderer.frame);
