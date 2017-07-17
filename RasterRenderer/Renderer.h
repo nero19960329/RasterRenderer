@@ -60,16 +60,6 @@ void Renderer<T>::render(const Scene &scene) {
 	int idx = 0;
 
 	for (const auto &mesh : scene.meshes) {
-		/*if (idx != 19) {
-			++idx;
-			continue;
-		}*/
-
-		if (idx == 19 || idx == 27 || idx == 38) {
-			++idx;
-			continue;
-		}
-
 		std::cout << "Rendering " << idx << ": " << mesh.tris.size() << " tris . . . " << std::endl;
 		for (const auto &tri : mesh.tris) {
 			Clipper clipper(this->camera);
@@ -84,8 +74,6 @@ void Renderer<T>::render(const Scene &scene) {
 		}
 		std::cout << "Mesh " << idx << " done !" << std::endl;
 		++idx;
-		//if (idx == 19)
-		//	break;
 	}
 }
 
@@ -126,7 +114,7 @@ std::vector<glm::ivec2> Renderer<T>::flatTriPositions(glm::dvec2 p1, glm::dvec2 
 		std::swap(y0, y1);
 
 	for (int y = int(floor(y0)); y <= int(floor(y1)); ++y) {
-		if (std::abs(p2.y - p1.y) < 1e-6)
+		if (std::abs(p2.y - p1.y) < 1e-3)
 			continue;
 
 		double factor = (y - p1.y) * 1.0 / (p2.y - p1.y);

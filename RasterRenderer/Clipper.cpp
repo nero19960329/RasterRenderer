@@ -24,6 +24,8 @@ std::tuple<bool, std::vector<Tri>> Clipper::clipTri(const Tri &tri) {
 			} else if (!m1[i] && m2[i]) {	// ÄÚ-Íâ
 				tmpVerts.push_back(intersect(i, *it, *nextIt));
 				isChanged = true;
+			} else {
+				isChanged = true;
 			}
 		}
 

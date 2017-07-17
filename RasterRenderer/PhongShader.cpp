@@ -58,6 +58,7 @@ void PhongShader::render(const Scene & scene) {
 	lightCam.perspective(90.0, 1.0, 0.1, 100.0);
 
 	if (shadowMapDim > 0) {
+		getchar();
 		shadowShader = ShadowShader(shadowMapDim, shadowMapDim);
 		shadowShader.setCamera(lightCam);
 		shadowShader.render(scene);

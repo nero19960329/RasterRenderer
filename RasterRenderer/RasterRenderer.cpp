@@ -27,7 +27,7 @@ RasterRenderer::RasterRenderer(QWidget *parent) : QMainWindow(parent) {
 	);*/
 	cam.lookAt(
 		{ 300.0, 400.0, -200.0 },
-		{ 946.887512, 650.292542, -525.665161 },
+		{ -946.887512, 650.292542, 525.665161 },
 		{ 0.0, 1.0, 0.0 }
 	);
 	/*cam.lookAt(
