@@ -75,6 +75,7 @@
     <ClCompile Include="..\External\tiny_obj_loader\tiny_obj_loader.cc" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CanvasWidget.cpp" />
+    <ClCompile Include="Clipper.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_CanvasWidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -139,6 +140,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I.\..\External\glm" "-I.\..\External\tiny_obj_loader"</Command>
     </CustomBuild>
+    <ClInclude Include="Clipper.h" />
     <ClInclude Include="GeneratedFiles\ui_RasterRenderer.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="PhongShader.h" />

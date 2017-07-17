@@ -2,6 +2,7 @@
 
 #include "Camera.h"
 #include "Canvas.h"
+#include "Clipper.h"
 #include "Scene.h"
 #include "Utils.h"
 #include "Tri.h"
@@ -57,12 +58,34 @@ void Renderer<T>::render(const Scene &scene) {
 	this->depth.setAll(1.0);
 
 	int idx = 0;
+
 	for (const auto &mesh : scene.meshes) {
-		//std::cout << "Rendering " << idx << ". . . " << std::endl;
-		for (const auto &tri : mesh.tris)
-			renderTri(tri);
-		//std::cout << "Mesh " << idx << " done !" << std::endl;
-		//++idx;
+		/*if (idx != 19) {
+			++idx;
+			continue;
+		}*/
+
+		if (idx == 19 || idx == 27 || idx == 38) {
+			++idx;
+			continue;
+		}
+
+		std::cout << "Rendering " << idx << ": " << mesh.tris.size() << " tris . . . " << std::endl;
+		for (const auto &tri : mesh.tris) {
+			Clipper clipper(this->camera);
+			bool isChanged;
+			std::vector<Tri> tris;
+			std::tie(isChanged, tris) = clipper.clipTri(tri);
+			if (isChanged) {
+				for (const auto &frag : tris)
+					renderTri(frag);
+			} else 
+				renderTri(tri);
+		}
+		std::cout << "Mesh " << idx << " done !" << std::endl;
+		++idx;
+		//if (idx == 19)
+		//	break;
 	}
 }
 
@@ -102,15 +125,33 @@ std::vector<glm::ivec2> Renderer<T>::flatTriPositions(glm::dvec2 p1, glm::dvec2 
 	if (p2.y < p1.y)
 		std::swap(y0, y1);
 
-	for (int y = int(floor(y0)); y <= int(ceil(y1)); ++y) {
+	for (int y = int(floor(y0)); y <= int(floor(y1)); ++y) {
+		if (std::abs(p2.y - p1.y) < 1e-6)
+			continue;
+
 		double factor = (y - p1.y) * 1.0 / (p2.y - p1.y);
 		double leftX = p1.x + (p2.x - p1.x) * factor;
 		double rightX = p1.x + (p3.x - p1.x) * factor;
 
 		// 只要保证两端在三角形内部，中间部分就一定在内部
-		int x0 = int(floor(leftX)), x1 = int(ceil(rightX));
+		int x0 = int(floor(leftX)), x1 = int(floor(rightX));
+		if (x0 <= 0)
+			x0 = 0;
+		else if (x0 >= frame->w)
+			continue;
+		if (x1 >= frame->w)
+			x1 = frame->w - 1;
+		else if (x1 <= 0)
+			x1 = 0;
+
+		if (x0 > x1)
+			continue;
 		while (!ptInTri(glm::dvec2(x0, y), p1, p2, p3) && x0 <= x1) ++x0;
+
+		if (x0 > x1)
+			continue;
 		while (!ptInTri(glm::dvec2(x1, y), p1, p2, p3) && x1 >= x0) --x1;
+
 		for (int x = x0; x <= x1; ++x)
 			posVec.emplace_back(x, y);
 	}

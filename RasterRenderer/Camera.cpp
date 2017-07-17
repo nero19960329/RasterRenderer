@@ -7,7 +7,8 @@ void Camera::lookAt(glm::dvec3 eye, glm::dvec3 center, glm::dvec3 up) {
 	glm::dvec3 x, y, z;
 	y = glm::normalize(up);
 	z = glm::normalize(eye - center);
-	x = glm::cross(y, z);
+	x = glm::normalize(glm::cross(y, z));
+	y = glm::normalize(glm::cross(z, x));
 
 	glm::dmat4 R(
 		x[0], x[1], x[2], 0.0,
@@ -25,6 +26,8 @@ void Camera::lookAt(glm::dvec3 eye, glm::dvec3 center, glm::dvec3 up) {
 }
 
 void Camera::perspective(double fovy, double aspect, double zNear, double zFar) {
+	zNear_ = zNear;
+
 	double f = 1.0 / tan(fovy * 0.5);
 	projMat_ = glm::transpose(glm::dmat4(
 		f / aspect,		0.0,	0.0,								0.0,
